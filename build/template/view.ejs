@@ -23,8 +23,10 @@
 <% if (!id) { %>
   <a href="javascript:;" class="button btn-order" id="btn-order">确认提交</a>
 <% } else { %>
-	<div class="grid btn-view">
-		<div class="cell"><span class="back">返回</span></div>
-		<div class="cell "><span class="cancel">取消</span></div>
+	<div class="btn-view">
+		<% if(orderStatus == 1) {%>
+			<div><span class="cancel">取消</span></div>
+		<% } %>
+		<div><span class="back">返回</span></div>
 	</div>
 <% } %>
