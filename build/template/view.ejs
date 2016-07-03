@@ -9,9 +9,8 @@
 <% } %>
 <div class="modle">
 	<h4>兑换内容</h4>
-	<p>兑换类型: <%= type  %></p>
-	<p>外币类型: <%= currency %></p>
-	<p>兑换金额: <%= sum %></p>
+	<p><%= buy %></p>
+	<p><%= sell%>: <%= yuan %>人民币</p>
 	<p>取钞日期: <%= takeDate %></p>
 </div>
 <div class="modle">
@@ -23,17 +22,21 @@
 </div>
 <div class="modle">
 	<h4>网点信息</h4>
+	<p>网点名称: <%= name%></p>
 	<p>城市:<%= city %></p>
 	<p>地址: <%= address %></p>
 	<p>营业时间: <%= opentime %></p>
 </div>
 <% if (!id) { %>
-  <a href="javascript:;" class="button btn-order" id="btn-order">确认提交</a>
+	<div class="group-line btn-view grid">
+		<div><span class="buttonback">返回</span></div>
+		<div><a href="javascript:;" class="button next" id="btn-order">确认提交</a></div>
+	</div>
 <% } else { %>
-	<div class="btn-view">
+	<div class="group-line btn-view grid">
+		<div><span class="buttonback">返回</span></div>
 		<% if(orderStatus == 1) {%>
-			<div><span class="cancel">取消</span></div>
+			<div><span class="button cancel">取消</span></div>
 		<% } %>
-		<div><span class="back">返回</span></div>
 	</div>
 <% } %>
