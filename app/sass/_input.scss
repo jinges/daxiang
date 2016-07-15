@@ -1,0 +1,47 @@
+.text {
+  position: relative;
+  font-size: px2rem(22px);
+  display: block;
+  width: 100%;
+  height: px2rem(80px);
+  line-height: px2rem(40px);
+  display: block;
+  padding: px2rem(20px);
+  background-color: rgba(255,255,255,.8);
+  -webkit-appearance: none;
+  appearance: none;
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  &[type="number"]::-webkit-inner-spin-button,
+  &[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  
+  &:focus{
+  	outline: none;
+  }
+  &.no_empty{
+    
+  }
+  &.error{
+    
+  }
+}
+
+.label {
+  bottom: 0;
+  color: #2a2a2a;
+  font-size: px2rem(26px);
+  pointer-events: none;
+  width: px2rem(160px);
+  height: px2rem(80px);
+  line-height: px2rem(80px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+}

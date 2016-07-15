@@ -1,0 +1,59 @@
+<% if (!id) { %>
+<section>
+	<div class="progress grid">
+		<div class="cell active actived"><p></p><span></span><em>网点查询</em></div>
+		<div class="cell active actived"><p></p><span></span><em>订单填写</em></div>
+		<div class="cell active"><p></p><span></span><em>订单完成</em></div>
+	</div>
+</section>
+<% } %>
+<section class="view-body">
+	<div class="modle">
+	<h4>兑换内容</h4>
+	<p><%= buy %></p>
+	<p><%= sell%><%= yuan %>元人民币</p>
+	<p>取钞日期: <%= takeDate %></p>
+</div>
+<div class="modle">
+	<h4>兑换人</h4>
+	<p>兑换人姓名: <%= changer %></p>
+	<p>证件类型: <%= idTypeText %></p>
+	<p>证件号码：<%= idNo %></p>
+	<p>联系手机：<%= mobileNo %></p>
+</div>
+<div class="modle">
+	<h4>取钞网点信息</h4>
+	<p>网点名称: <%= name%></p>
+	<p>城市:<%= city %></p>
+	<p>地址: <%= address %></p>
+	<p>营业时间: <%= opentime %></p>
+</div>
+</section>
+<% if (!id) { %>
+	<section class="form">
+		<div>
+			<% if(hasPhone) { %>
+				<div class="group-line grid">
+					<label for="" class="label">验证码</label>	
+					<div class="cell grid">
+						<div class="cell"><input placeholder="验证码" type="number" id="valiCode" class="text"></div>
+						<a href="javascript:;" class="button btn-code" id="getCode">获取验证码</a>
+					</div>
+				</div>
+			<% } %>
+			<div class="group-line">
+				<div  class="cell"><a href="javascript:;" class="button next" id="btn-order">确认提交</a></div>
+			</div>
+			<div class="group-line agreement">
+				<label for=""><input id="agree" checked="checked" type="checkbox">我确认兑换人与取钞人信息一致，并已确认服务条款<a target="_blank" href="agreement.html">《大象汇率服务条款》</a></label>
+			</div>
+		</div>
+	</section>
+<% } else { %>
+	<div class="group-line btn-view grid">
+		<div class="cell"><span class="button back">返回</span></div>
+		<% if(orderStatus == 1) {%>
+			<div  class="cell"><span class="button cancel">取消</span></div>
+		<% } %>
+	</div>
+<% } %>

@@ -1,0 +1,19 @@
+.button {
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  width: 100%;
+  font-size: px2rem(30px);
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select:none; 
+  height: px2rem(80px);
+  line-height: px2rem(80px);
+  background: #f00;
+}
+
+input.button[type="submit"] {
+  -webkit-appearance:none;
+}

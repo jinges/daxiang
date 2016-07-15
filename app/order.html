@@ -1,0 +1,66 @@
+<!--include "./component/header.html"-->
+<section>
+	<div class="progress grid">
+		<div class="cell active actived"><p></p><span></span><em>网点查询</em></div>
+		<div class="cell active"><p></p><span></span><em>订单填写</em></div>
+		<div class="cell"><p></p><span></span><em>订单完成</em></div>
+	</div>
+</section>
+<section class="form">
+	<div>
+		<div class="group-line grid">
+			<label for="" class="label" id="buy"></label>	
+			<div class="cell">
+				<input  id="sum" type="number" class="text">
+			</div>
+		</div>
+		<div class="group-line grid">
+			<label for="" class="label" id="sell"></label>	
+			<div class="cell">
+				<input placeholder="0" id="yuan" disabled="true" type="text" class="text">
+			</div>
+		</div>
+		<div class="group-line grid">
+			<label for="" class="label">兑换人姓名</label>	
+			<div class="cell">
+				<input placeholder="与兑换人证件一致" id="changer" type="text" class="text">
+			</div>
+		</div>
+		<div class="group-line grid">
+			<label for="" class="label">证件类型</label>	
+			<div class="cell">
+				<select name="" id="IDType" class="select">
+					<option value="1">身份证</option>
+					<option value="2">护照</option>
+				</select>
+			</div>
+		</div>
+		<div class="group-line grid">
+			<label for="" class="label">证件号码</label>	
+			<div class="cell">
+				<input placeholder="与兑换人证件一致" id="ID" type="number" class="text">
+			</div>
+		</div>
+		<div class="group-line grid">
+			<label for="" class="label">联系手机</label>	
+			<div class="cell">
+				<input placeholder="11位手机号码" type="number" maxlength="11" id="phone" class="text">
+			</div>
+		</div>
+		<div class="group-line grid">
+			<label for="" class="label">推荐人</label>	
+			<div class="cell">
+				<input placeholder="推荐人手机或代码" maxlength="11" id="reference" type="text" class="text">
+			</div>
+		</div>
+		<div class="group-line grid">
+			<a href="javascript:;" class="button" id="btn_orderView">预览订单</a>
+		</div>
+	</div>
+</section>
+<!--include "./component/footer.html"-->
+<script>
+	$(function(){
+		initOrderPage();
+	})
+</script>

@@ -1,0 +1,60 @@
+body{
+  font: $preferred_font;
+}
+
+@media all and (min-width: 0) {
+  html {
+    font-size: 280/640*$baseSize
+  }
+}
+@media all and (min-width: 320px) {
+  html {
+    font-size: 320/640*$baseSize
+  }
+}
+@media all and (min-width: 360px) {
+  html {
+    font-size: 360/640*$baseSize
+  }
+}
+@media all and (min-width: 375px) {
+  html {
+    font-size: 375/640*$baseSize
+  }
+}
+
+@media all and (min-width: 384px) {
+  html {
+    font-size: 384/640*$baseSize
+  }
+}
+@media all and (min-width: 412px) {
+  html {
+    font-size: 412/640*$baseSize
+  }
+}
+@media all and (min-width: 440px) {
+  html {
+    font-size: 440/640*$baseSize
+  }
+}
+@media all and (min-width: 480px) {
+  html {
+    font-size: 480/640*$baseSize
+  }
+}
+@media all and (min-width: 540px) {
+  html {
+    font-size: 540/640*$baseSize
+  }
+}
+@media all and (min-width: 600px) {
+  html {
+    font-size: 600/640*$baseSize
+  }
+}
+@media all and (min-width: 640px) {
+  html {
+    font-size: $baseSize;
+  }
+}

@@ -1,0 +1,15 @@
+<% for(var i=0,len=list.length;i<len;i++){ %>
+	<li data-index="<%= i %>">
+		<h4>兑换信息</h4>
+		<div class="grid">
+			<div class="cell">
+				<p>兑换金额: <%= list[i].sum %></p>
+				<p>兑换类型: <%= list[i].type %></p>
+			</div>
+			<div>
+				<p>外币币种: <%= list[i].currency %></p>
+				<p>订单状态: <%= list[i].orderStatusText %></p>
+			</div>
+		</div>
+	</li>
+<% } %>

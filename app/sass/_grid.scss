@@ -1,0 +1,12 @@
+.grid {
+  display: -webkit-box;
+  display: box;
+  display: -webkit-flex;
+  display: flex;
+}
+.cell{
+	-webkit-flex:1;
+	flex:1;
+	-webkit-flex-box:1;
+	flex-box:1;
+}

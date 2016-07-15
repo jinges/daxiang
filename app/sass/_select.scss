@@ -1,0 +1,18 @@
+.select {
+  // font-size: px2rem(22px);
+  // display: block;
+  // width: 100%;
+  // height: px2rem(80px);
+  // line-height: px2rem(40px);
+  // margin: 0;
+  // padding: px2rem(20px);
+  // display: block;
+  // background: none;
+  // text-align: left;
+  // color: inherit;
+  @extend .text;
+  option{
+  height: px2rem(80px);
+  line-height: px2rem(80px);
+  }
+}
