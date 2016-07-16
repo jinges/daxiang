@@ -98,6 +98,9 @@ img{
 .lang a.checked{
 	color: #383838;
 }
+.logo_disc{
+	padding: 0px 0 40px;
+}
 @media all and (max-width: 640px) {
 	.logo{
 		font-size: 50px;
@@ -130,5 +133,8 @@ img{
     }
     .bottom p{
     	padding-bottom: 40px;
+    }
+    .logo_disc{
+    	padding: 0 0 10px;
     }
 }
