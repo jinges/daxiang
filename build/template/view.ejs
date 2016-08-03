@@ -11,6 +11,10 @@
 	<div class="modle">
 	<h4>兑换内容</h4>
 	<p><%= buy %></p>
+	<p>兑换汇率: <%= rateText %></p>
+	<% if(change) { %>
+		<p>单笔手续费: <%=change %>元</p>
+	<% } %>
 	<p><%= sell%><%= yuan %>元人民币</p>
 	<p>取钞日期: <%= takeDate %></p>
 </div>
