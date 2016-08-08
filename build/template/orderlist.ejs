@@ -1,6 +1,6 @@
 <% for(var i=0,len=list.length;i<len;i++){ %>
 	<li data-index="<%= i %>">
-		<h4>兑换信息</h4>
+		<h4>兑换信息 <span class="orderid">订单编号：<%= list[i].id %></span></h4>
 		<div class="grid">
 			<div class="cell">
 				<p>兑换类型: <%= list[i].type %></p>
