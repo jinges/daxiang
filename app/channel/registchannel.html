@@ -1,0 +1,42 @@
+<!--include "./../component/header.html"-->
+<div class="channel">
+	<div class="regist">
+		<div>
+			<!-- <p class="tip">推广大象汇率，轻松获取返佣</p> -->
+			<img src="assets/images/banner.png" alt="">
+		</div>
+		<article class="form">
+			<div>
+				<div class="group-line grid">
+					<label for="" class="label">名&nbsp;&nbsp;称</label>	
+					<div class="cell">
+						<input placeholder="请输入名称" type="text" maxlength="4" id="name" class="text">
+					</div>
+				</div>
+				<div class="group-line grid">
+					<label for="" class="label">联系手机</label>	
+					<div class="cell">
+						<input placeholder="手机号码" type="number" maxlength="11" id="phone" class="text">
+					</div>
+				</div>
+				<div class="group-line grid">
+					<label for="" class="label">验证码</label>
+					<div class=" grid cell grid">
+						<div class="cell"  style="padding-right: .2rem"><input placeholder="短信验证码" type="number" id="valiCode" class="text"></div>
+						<a href="javascript:;" style="width: 2rem" class="button" id="getCode">获取验证码</a>
+					</div>
+				</div>
+				<div class="group-line">
+					<a href="javascript:;" class="button next" id="updatephone">注册</a>
+				</div>
+			</div>
+		</article>
+	</div>
+</div>
+<!--include "./../component/footer.html"-->
+<script>
+	$(function(){
+		document.title="注册";
+		registchannel();
+	})
+</script>

@@ -1,0 +1,21 @@
+<!--include "./../component/header.html"-->
+<div class="channel">
+	<ul class="rule">
+		<li>
+			<h5 class="title">如何充值</h5>
+			<p class="dist">不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊不知道啊</p>
+		</li>
+		<li>
+			<h5 class="title">如何充值</h5>
+			<p class="dist">不知道啊</p>
+		</li>
+	</ul>
+</div>
+<!--include "./../component/footer.html"-->
+<script>
+	$(function(){
+		$(".title").click(function(){
+			$(this).siblings('.dist').show().parent().siblings().find('.dist').hide();
+		})
+	})
+</script>

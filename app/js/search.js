@@ -3,7 +3,8 @@ var storeList = [];
 
 function search(){
 	getCode();
-	getData('dates', null, function(err, data){
+	params = lStorage.get('params');
+	getData('dates', params, function(err, data){
 		if(err){
 			alert(err);
 			return false;
@@ -12,12 +13,16 @@ function search(){
     	data = data.list;
     	for(var i = 0,len = data.length; i< len; i++) {
     		var item = data[i];
-    		options+= '<option value="'+ item +'">'+ item +'</option>'
+    		if(params && item == params.takeDate){
+    			options+= '<option selected value="'+ item +'">'+ item +'</option>'
+    		} else {
+    			options+= '<option value="'+ item +'">'+ item +'</option>'
+    		}
     	}
     	$("#takeDate").append(options);
     })
 
-	getData('cities', null, function(err, data){
+	getData('cities', params, function(err, data){
 		if(err){
 			alert(err);
 			return false;
@@ -26,12 +31,16 @@ function search(){
     	data = data.list;
     	for(var i = 0,len = data.length; i< len; i++) {
     		var item = data[i];
-    		options+= '<option value="'+ item.id +'">'+ item.name +'</option>'
+    		if(params && params.cityId == item.id) {
+    			options+= '<option selected value="'+ item.id +'">'+ item.name +'</option>'
+    		} else {
+    			options+= '<option value="'+ item.id +'">'+ item.name +'</option>'
+    		}
     	}
     	$("#cities").append(options);
     })
 
-    getData('areas', null, function(err, data){
+    getData('areas', params, function(err, data){
 		if(err){
 			alert(err);
 			return false;
@@ -40,7 +49,11 @@ function search(){
     	data = data.list;
     	for(var i = 0,len=data.length; i< len; i++) {
     		var item = data[i];
-    		options+= '<option value="'+ item.id +'">'+ item.name +'</option>'
+    		if(params && params.areaId == item.id) {
+    			options+= '<option selected value="'+ item.id +'">'+ item.name +'</option>'
+    		} else {
+    			options+= '<option value="'+ item.id +'">'+ item.name +'</option>'
+    		}
     	}
     	$("#areas").append(options);
     })
@@ -97,12 +110,13 @@ function store(){
 		for(var i=0,len=storeList.length; i< len; i++) {
 			var item = storeList[i];
 			if(params.buy == 'CNY') {
-					item.rateText = '100'+currencyObj[params.sell][0]+'='+item.rate * 100+'人民币'; 
-				} else {
-					item.rateText = '100'+currencyObj[params.buy][0]+'='+item.rate * 100+'人民币';
-				}
+				item.rateText = '100'+currencyObj[params.sell][0]+' = '+item.rate+'人民币'; 
+			} else {
+				item.rateText = '100'+currencyObj[params.buy][0]+' = '+item.rate+'人民币';
+			}
 		}
         render("store_list", 'template/store.ejs', data);
+        $(".btn-view").show();
         if(!storeList.length) {
         	$(".btn-view .cell").eq(1).hide();
         	return false;

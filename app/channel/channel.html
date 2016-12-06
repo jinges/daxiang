@@ -1,0 +1,33 @@
+<!--include "./../component/header.html"-->
+<div class="channel">
+	<div class="index" style="display: none">
+		<h4 class="title">我的二维码</h4>
+		<p class="tip">您的朋友扫描下方二维码即可</p>
+		<img src="" class="qr" alt="">
+		<div style="padding: 20px 0px 10px 0px;">
+			<a href="" class="button next" id="givefriend">发送给好友</a>
+		</div>
+		<div class="grid link">
+			<div class="cell"><a href="rebaterule.html">查看返佣规则</a></div>
+			<div class="cell" style="text-align: right"><a href="withdrawals.html">返佣提现</a></div>
+		</div>
+		<div class="grid phone">
+			<p class="cell">已绑定的返佣手机号 <span id="phone"></span></p>
+			<a href="updaterebatephone.html" class="button next">修改</a>
+		</div>
+	</div>
+	<div class="bigqr">
+		<header class="hd">
+			<h3>关注大象汇率，享换汇神服务</h3>
+			<img src="" class="qr" alt="">
+		</header>
+		<p>最优汇率，0元佣金</p>
+		<p>线上预约，线下立等取钞</p>
+	</div>
+</div>
+<!--include "./../component/footer.html"-->
+<script>
+	$(function(){
+		channel();
+	})
+</script>

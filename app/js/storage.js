@@ -8,7 +8,7 @@ var lStorage = {
 		var v = l.getItem(k);
 		if(!v) {
 			// window.location.href = '/index.html';
-			return false;
+			return null;
 		}
 		return JSON.parse(v);
 	}

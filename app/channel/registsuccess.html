@@ -1,0 +1,21 @@
+<!--include "./../component/header.html"-->
+<div class="success">
+	<div class="img"><img src="assets/images/success.png" alt=""></div>
+	<h4 class="title">已注册成功</h4>
+	<p style="text-align: center;">绑定手机号 <span id="phone"></span></p>
+	<div style="padding: 20px 20px 40px 20px;">
+		<a  onclick="WeixinJSBridge.call('closeWindow');" class="button next">完成</a>
+	</div>
+</div>
+<!--include "./../component/footer.html"-->
+<script type="text/javascript">
+	$(function(){
+		var url = window.location.href;
+		var params = {};
+		if(url.split("?phone=").length > 1){
+	        var phone = url.split("?phone=")[1];
+	        $("#phone").text(phone);
+	    }
+		document.title="注册成功";
+	})
+</script>

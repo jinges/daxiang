@@ -1,0 +1,37 @@
+<!--include "./../component/header.html"-->
+<div class="channel">
+	<div class="withdrawal">
+		<p class="tip">我的返佣</p>
+		<div class="money">
+			<p>可提现金额： <span class="account">0</span>元人民币</p>
+			<p>已提现金额： <span class="withdrawa">0</span>元人民币</p>
+		</div>
+		<div style="padding: 20px 10px 10px;">
+			<a  class="button next" id="btnWithdrawalview">全额提现</a>
+		</div>
+		<div class="search_tip">
+			<h4>温馨提醒：</h4> 
+			<p>1、最少100元以上，才可提现</p>
+			<p>2、提交提现后，佣金将在5个工作日内以话费充值到以下绑定的手机号</p>
+			<p>3、已绑定的返佣手机号<span class="phone"></span> </p>
+		</div>
+	</div>
+	<div class="withdrawal tip">
+		<div class="money">
+			<p>可提现金额： <span class="account">0</span>元人民币</p>
+		</div>
+		<p>提现兑换手机话费</p>
+		<p>手机号码: <span class="phone"></span></p>
+		<p class="date">预计5个工作日内到账</p>
+		<div style="padding: 20px 10px 10px;">
+			<a  class="button next" id="btnWithdrawal">全额提现</a>
+		</div>
+	</div>
+</div>
+<!--include "./../component/footer.html"-->
+<script type="text/javascript">
+	$(function(){
+		withdrawals();
+		document.title="返佣提现";
+	})
+</script>

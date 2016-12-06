@@ -4,65 +4,76 @@ $(function(){
 
 	$("#sum").keyup(function(){
 		var sum = $(this).val();
-		var yuan = duihuan(params.buy, sum, params.rate);
+		var yuan = duihuan(params.buy, sum, (params.rate/ 100).toFixed(4));
 		
 		$("#yuan").val(yuan+"元人民币")
 	}).blur(function(){
 		var sum = $(this);
-		var result = $("#yuan");
-		var yuan = duihuan(params.buy, sum.val(), params.rate);
+		var amount = $("#yuan");
+		var rate = (params.rate/ 100).toFixed(4);
+		var yuan = duihuan(params.buy, sum.val(), rate);
 		if(!yuan) {
-			alert('请输入兑换金额');
-			return false;
-		} else if(yuan * 1 > params.max * 1) {
-			result.val(params.max+"元人民币");
-			sum.val(Math.floor(params.max/params.rate-params.max%params.rate));
-			alert('单笔兑换金额不得高于'+ params.max +'元人民币');
-			return false;
-		}else if(yuan * 1 < params.min * 1) {
-			result.val(params.min+"元人民币");
-			sum.val(Math.floor(params.min/params.rate-params.min%params.rate));
-			alert('单笔兑换金额不得低于'+ params.min +'元人民币');
+			amount.attr('placeholder', '最少'+ params.min +'元人民币');
 			return false;
 		}
 		if(params.buy == 'CNY') {
 			var mo = sum.val()%currencyObj[params.sell][1];
-			if(mo) {
-				sum.val(sum.val());
-				yuan = duihuan(params.buy, sum.val(), params.rate);
-				result.val(yuan+"元人民币")
-				alert('需输入最小兑换面额'+currencyObj[params.sell][1]+'的整数倍');
-				return false;
+			var result = Math.floor(sum.val() / currencyObj[params.sell][1]);
+			yuan = duihuan(params.buy, (sum.val() - mo), rate);
+
+			if(yuan > params.max * 1 && params.max !=0) {
+				var newSum = Math.floor(params.max/rate/currencyObj[params.sell][1]);
+				sum.val(newSum * currencyObj[params.sell][1]);
+				amount.val(formatMoney(newSum * currencyObj[params.sell][1] * rate)+"元人民币");
+				alert('单笔兑换金额不得高于'+ params.max +'元人民币');
+			} else if (yuan < params.min * 1){
+				var newSum = Math.ceil(params.min/rate/currencyObj[params.sell][1]);
+				sum.val(newSum * currencyObj[params.sell][1]);
+				amount.val(formatMoney(newSum * currencyObj[params.sell][1] * rate)+"元人民币");
+				alert('单笔兑换金额不得低于'+ params.min +'元人民币');
+			} else {
+				sum.val(sum.val() - mo);
+				amount.val(formatMoney(yuan)+"元人民币");
 			}
 		} else {
-			var mo = sum.val()%currencyObj[params.buy][1]
-			if(mo) {
-				sum.val(sum.val());
-				yuan = duihuan(params.buy, sum.val(), params.rate);
-				result.val(yuan+"元人民币")
-				alert('需输入最小兑换面额'+currencyObj[params.buy][1]+'的整数倍');
-				return false;
+			var mo = sum.val()%currencyObj[params.buy][1];
+			var result = Math.floor(sum.val() / currencyObj[params.buy][1]);
+			yuan = duihuan(params.buy, (sum.val() - mo), rate);
+			if(yuan > params.max * 1 && params.max != 0) {
+				var newSum = Math.floor(params.max/rate/currencyObj[params.buy][1]);
+				sum.val(newSum * currencyObj[params.buy][1]);
+				amount.val(formatMoney(newSum * currencyObj[params.buy][1] * rate)+"元人民币");
+				alert('单笔兑换金额不得高于'+ params.max +'元人民币');
+			} else if (yuan < params.min * 1){
+				var newSum = Math.ceil(params.min/rate/currencyObj[params.buy][1]);
+				sum.val(newSum * currencyObj[params.buy][1]);
+				amount.val(formatMoney(newSum * currencyObj[params.buy][1] * rate)+"元人民币");
+				alert('单笔兑换金额不得低于'+ params.min +'元人民币');
+			} else {
+				sum.val(sum.val() - mo);
+				amount.val(formatMoney(yuan)+"元人民币");
 			}
 		}
 
-		params.money = yuan;
 	})
 
 
 
 	$("#btn_orderView").click(function(){
-		params.sum = $('#sum').val();
+		params.sum = $('#sum').val().replace(/,/g, '');
 		params.changer = $("#changer").val();
 		params.idType = $("#IDType").val();
 		params.idTypeText = $('#IDType option').not(function(){ return !this.selected }).text();
 		params.idNo = $("#ID").val();
-		params.reference = $("#reference").val();
+		params.reference = ''; //$("#reference").val();
 		params.mobileNo = $("#phone").val();
+		params.money = $("#yuan").val().replace(/\D/g, '') / 100;
+		params.amount = params.money * 1 + params.change * 1;
 
 		if(!params.sum) {
 			alert('请输入兑换金额');
 			return false;
-		} else if(params.money * 1 > params.max * 1) {
+		} else if(params.money * 1 > params.max * 1 && params.max != 0) {
 			alert('单笔兑换金额不得高于'+ params.max +'元人民币');
 			return false;
 		}else if(params.money * 1 < params.min * 1) {
@@ -87,21 +98,15 @@ $(function(){
 			}
 		}
 
-		if(!params.mobileNo) {
-			alert('请输入手机号码');
+		if(!validatePhone(params.mobileNo)){
 			return false;
-		} else if (!/1\d{10}/.test(params.mobileNo)) {
-			alert('请输入正确的手机号码');
-			return false;
-		}
+		};
 
-		if(params.reference) {
-			if(!/(1\d{10})|(^[a-zA-Z]\d{3}[a-zA-Z])$/.test(params.reference)) {
-				alert('推荐人信息有误');
-			}
-		}
-
-		
+		// if(params.reference) {
+		// 	if(!/(1\d{10})|(^[a-zA-Z]\d{3}[a-zA-Z])$/.test(params.reference)) {
+		// 		alert('推荐人信息有误');
+		// 	}
+		// }
 
 		getData('isExistMobile', {mobileNo: params.mobileNo},
 			function(err, data){
@@ -120,6 +125,7 @@ $(function(){
 				if(params.IDType == 1) {
 					params.IDTypeText = ''
 				}
+
 			    lStorage.set('params', JSON.stringify(params));
 				window.location.href = 'view.html';
 			}
@@ -127,23 +133,35 @@ $(function(){
 		
 	});
 
-	
-
 })
+
+function validatePhone(phone){
+	if(!phone) {
+		alert('请输入手机号码');
+		return false;
+	} else if (!/1\d{10}/.test(phone)) {
+		alert('请输入正确的手机号码');
+		return false;
+	}
+	return true;
+}
+
 
 var status =  ["待审核", "已受理", "拒绝", "取消", "完成"];
 var orderList = [];
 
 function initOrderPage(){
 	if(params.buy == 'CNY') {
-		$("#buy").text("卖出"+currencyObj[params.sell][0]);
+		$("#buy").text("卖出 "+currencyObj[params.sell][0]);
 		$("#sell").text('预计所得');
-		$("#sum").attr('placeholder', '最小兑换面额'+currencyObj[params.sell][1]+'的整数倍 '+params.sell)
+		$("#sum").attr('placeholder', '最小兑换面额'+currencyObj[params.sell][1]+'的整数倍')
 	} else {
-		$("#buy").text("买入"+currencyObj[params.buy][0]);
+		$("#buy").text("买入 "+currencyObj[params.buy][0]);
 		$("#sell").text('预计所需');
-		$("#sum").attr('placeholder', '最小兑换面额'+currencyObj[params.buy][1]+'的整数倍 '+params.buy)
+		$("#sum").attr('placeholder', '最小兑换面额'+currencyObj[params.buy][1]+'的整数倍')
 	}
+	$("#sell").text('订单金额');
+	$("#yuan").attr('placeholder', '最少'+ params.min +'元人民币');
 
 }
 
@@ -178,12 +196,14 @@ function getOrderData(params){
 				item.currency = currencyObj[item.buy][0];
 			}
 			item.orderStatusText = getStatus(item.orderStatus);
+			item.sum = formatMoney(item.sum);
 		}
 		render("myorder", 'template/orderlist.ejs', data);
 		
 		$('#myorder li').on('click', function(){
 			var index = $(this).attr('data-index');
 			var order = orderList[index];
+			order.sum = order.sum.replace(/,/g, '')
 		    lStorage.set('params', JSON.stringify(order));
 		    window.location.href = 'view.html'
 		})
@@ -213,33 +233,75 @@ function getStatus(code){
 }
 
 function viewOrder(){
-	var params = lStorage.get('params');
+	var url = window.location.href;
+	var params = {};
+	if(url.split("?").length > 1){
+        var query = url.split("?")[1];  //id=1&name=2
+        query = query.split('&');
+        for(var i=0,len=query.length; i< len; i++) {
+            var item = query[i].split('=');
+            params[item[0]] = item[1];
+        }
+    }
+     if(params.hasOwnProperty('openId')){
+        getData('viewOrder', params, function(err, data){
+            if(err){
+                alert(err);
+                return false;
+            }
+            params = data.list[0];
+            renderView(params);
+            $(".form").hide();
+        })
+    } else {
+        params = lStorage.get('params');
+        renderView(params)
+    }
+	
+}
+
+function renderView(params){
 	if (params.idType == 1) {
 		params.idTypeText = '身份证';
 	} else {
 		params.idTypeText = '护照';
 	}
+	params.change = params.change?params.change * 1:0;
+	params.yuan = duihuan(params.buy, params.sum, (params.rate/ 100).toFixed(4)) + params.change;
+	params.yuan=formatMoney(params.yuan);
 
+	params.sum = formatMoney(params.sum);
 	if(params.buy == 'CNY') {
+		params.rateText = '100'+currencyObj[params.sell][0]+' = '+params.rate+'人民币'; 
 		params.buy ="卖出:"+params.sum+currencyObj[params.sell][0];
 		params.sell = '预计所得:';
 	} else {
+		params.rateText = '100'+currencyObj[params.buy][0]+' = '+params.rate+'人民币';
 		params.buy="买入:"+params.sum+currencyObj[params.buy][0];
 		params.sell='预计所需:';
 	}
 
+	params.sell = '订单金额:';
 
-	params.yuan = duihuan(params.buy, params.sum, params.rate);
+	// document.write(JSON.stringify(params));
+
 
 	render("view", 'template/view.ejs', params);
 	viewEvent()
 }
 
-
-function viewEvent(){
+function getMobileCode(){
 	$("#getCode").live('click', function(){
 		var that = $(this);
 		if(flag){
+			return false;
+		}
+		var mobileNo = $("#phone").val()
+		if(params){
+			mobileNo = params.mobileNo;
+		}
+		if(!mobileNo){
+			alert('请输入手机号码');
 			return false;
 		}
 		var s = 120;
@@ -253,7 +315,7 @@ function viewEvent(){
 			that.text(--s+"s");
 		}, 1000);
 		flag = true;
-		getData('sendCode', {mobileNo: params.mobileNo}, 
+		getData('sendCode', {mobileNo: mobileNo}, 
 			function(err){
 				if(err) {
 					alert(err);
@@ -263,6 +325,9 @@ function viewEvent(){
 			}
 		);
 	});
+}
+function viewEvent(){
+	getMobileCode(params.mobileNo);
 	$("#btn-order").on('click', function(){
 		var valiCode  = $("#valiCode").val();
 
@@ -290,12 +355,13 @@ function viewEvent(){
 	})
 
 	function saveOrer(){
-		postData('order', JSON.stringify(params), function(err, data){
+		postData('order', JSON.stringify(params),
+		    function(err, data){
 					if(err) {
 						alert(err);
 						return false;
 					}
-
+					localStorage.removeItem('params');
 					window.location.href="success.html";
 				})
 	}
@@ -304,7 +370,7 @@ function viewEvent(){
 	})
 
 	$('.cancel').on('click', function(){
-		if(confirm('进确定要取消订单？')) {
+		if(confirm('确定要取消订单？')) {
 			var id = params.id;
 
 			getData('cancelOrder',{orderId: id}, function(err){
@@ -321,10 +387,28 @@ function viewEvent(){
 
 function duihuan(type, sum, rate){
 	var yuan = 0;
-	if(type == 'CNY') {
-		yuan = (sum / rate).toFixed(2);
-	} else {
-		yuan = (sum * rate).toFixed(2);
+	// if(type == 'CNY') {
+	// 	yuan = (sum / rate).toFixed(2);
+	// } else {
+	// 	yuan = (sum * rate).toFixed(2);
+	// }
+	return (sum * rate).toFixed(4) * 1;
+}
+
+function formatMoney(money) {
+	money = parseFloat((money + '').replace(/[^\d\.]/g, '')).toFixed(2)+"";
+	if(money< 1000) {
+		return money;
 	}
-	return yuan;
+	money = money.split('.');
+	var moneyLeft = money[0] ,moneyRight= money[1];
+	var strMoney = moneyLeft.toString().split('').reverse();
+	var newStr = [];
+	for(var i=0, len = strMoney.length; i < len; i++) {
+		newStr.push(strMoney[i])
+		if( (i+1)%3 == 0 && (i+1) != len) {
+			newStr.push(',')
+		}
+	}
+	return newStr.reverse().join('')+'.'+moneyRight;
 }
